@@ -1,0 +1,22 @@
+{
+  "name": "threejs-bare-example",
+  "version": "1.0.0",
+  "description": "fork it and use as a template for your questions or experiments.",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "dat.gui": "^0.7.7",
+    "stats.js": "0.17.0",
+    "three": "^0.129.0"
+  },
+  "devDependencies": {
+    "@types/dat.gui": "^0.7.6",
+    "@types/stats.js": "0.17.0",
+    "@types/three": "0.93.5",
+    "parcel-bundler": "^1.12.3"
+  },
+  "keywords": []
+}
