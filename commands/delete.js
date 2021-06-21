@@ -6,16 +6,41 @@ export default class CreateCommand extends Command {
     constructor(state) {
         super(state)
         this.raycaster = new Raycaster();
+        this.intersected = null;
     }
 
     mousemove (e) {
-        console.log('Command: mousemove delete', e, this)
+        // console.log('Command: mousemove delete', e, this)
         this.main.tempMesh.visible = false
-        // TODO: si rende trasparente quello sottolineato...
+        this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
+
+        let intersects = this.raycaster.intersectObjects(this.main.objects);
+
+        if (intersects.length > 0 && intersects[0].object.name !== 'hidden_plane') {
+            if (this.intersected != intersects[0].object) {
+                if (this.intersected) {
+                    // this.intersected.material.color.setHex(this.intersected.currentHex);
+                    this.intersected.material.opacity = 1;
+                    this.intersected.material.transparent = false;
+                }
+                this.intersected = intersects[0].object;
+                this.intersected.currentHex = this.intersected.material.color.getHex();
+                // this.intersected.material.color.setHex( 0xff0000);
+                this.intersected.material.opacity = 0.5;
+                this.intersected.material.transparent = true;
+            }
+        } else {
+            if (this.intersected) {
+                // this.intersected.material.color.setHex(this.intersected.currentHex);
+                this.intersected.material.opacity = 1;
+                this.intersected.material.transparent = false;
+            }
+            this.intersected = null;
+        }
     }
 
     pointerdown (e) {
-        console.log('Command: pointerdown delete', e, this)
+        // console.log('Command: pointerdown delete', e, this)
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.main.objects);
@@ -30,6 +55,6 @@ export default class CreateCommand extends Command {
     }
 
     pointerup (event) {
-        console.log('Command: pointerup delete', event, this)
+        // console.log('Command: pointerup delete', event, this)
     }
 }

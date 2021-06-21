@@ -47,8 +47,8 @@ class WebEditor3D {
     // GRID
     const size = 128;
     const divisions = 16;
-    const gridHelper = new GridHelper(size, divisions, 0x888888, 0x444444);
-    this.scene.add(gridHelper);
+    this.gridHelper = new GridHelper(size, divisions, 0x888888, 0x444444);
+    this.scene.add(this.gridHelper);
 
     // PLANE
     const geoPlane = new PlaneBufferGeometry(128, 128);
@@ -105,6 +105,40 @@ class WebEditor3D {
     this.startLoop()
   }
 
+  /* function createGrid(opts) {
+  var config = opts || {
+    height: 64,
+    width: 64,
+    linesHeight: 8,
+    linesWidth: 8,
+    color: 0x635d60
+  };
+
+  const material = new THREE.LineBasicMaterial({
+    color: config.color,
+    opacity: 0.65
+  });
+  material.transparent = true;
+
+  const points = [];
+  const stepw = config.linesWidth || 8;
+  const steph = config.linesHeight || 8;
+
+  //width
+  for (let i = -config.width; i <= config.width; i += stepw) {
+    points.push(new THREE.Vector3(-config.height, 0, i));
+    points.push(new THREE.Vector3(config.height, 0, i));
+  }
+  //height
+  for (let i = -config.height; i <= config.height; i += steph) {
+    points.push(new THREE.Vector3(i, 0, -config.width));
+    points.push(new THREE.Vector3(i, 0, config.width));
+  }
+
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+  return new THREE.LineSegments(geometry, material);
+} */
 
   startListening () {
     window.addEventListener('resize', this.onWindowResize.bind(this), false)

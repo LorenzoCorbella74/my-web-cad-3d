@@ -19,7 +19,7 @@ export default class EditCommand extends Command {
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.main.objects);
-        if (intersects.length > 0) {
+        if (intersects.length > 0 && intersects[0].object.name !== 'hidden_plane') {
             let localNormal = intersects[0].face?.normal || { x: 0, y: 0, z: 0 };
             console.log(localNormal)
             let cube = intersects[0].object;
