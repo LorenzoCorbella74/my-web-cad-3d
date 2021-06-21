@@ -16,7 +16,9 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import Debug, { parameters } from './debug'
 import KeyboardEvents from './keyboard'
+import TWEEN from '@tweenjs/tween.js'
 
+// COMMANDS
 import CreateCommand from './commands/create'
 import DeleteCommand from './commands/delete'
 import EditCommand from './commands/edit'
@@ -50,6 +52,7 @@ class WebEditor3D {
 
     // PLANE
     const geoPlane = new PlaneBufferGeometry(128, 128);
+    geoPlane.rotateX(-Math.PI / 2);
     const matPlane = new MeshBasicMaterial({
       color: 0x4d4444, /* , side: THREE.DoubleSide */
       opacity: 0.5,
@@ -57,8 +60,7 @@ class WebEditor3D {
     });
     const plane = new Mesh(geoPlane, matPlane);
     this.scene.add(plane);
-    plane.position.y = -0.005;
-    plane.rotation.x = -Math.PI / 2;
+    plane.position.y = -0.001;
     plane.name = "hidden_plane";
     plane.visible = true;
     this.objects.push(plane);
@@ -139,6 +141,7 @@ class WebEditor3D {
   animate () {
     this.debug.stats.begin()
 
+    TWEEN.update()
     this.controls.update()
     this.renderer.render(this.scene, this.camera)
 

@@ -1,11 +1,10 @@
-
 export default class KeyboardEvents {
 
     constructor(main) {
 
         this.main = main;
-        // DEFAULTS
-        this.currentCommand = 'CREATE'
+        
+        this.currentCommand = 'CREATE'  // DEFAULTS
 
         this.startListenDocumentKeyup()
     }

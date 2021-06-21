@@ -1,6 +1,6 @@
 import Command from './command';
 import {
-    BoxBufferGeometry, 
+    BoxBufferGeometry,
     MeshBasicMaterial, MeshLambertMaterial, Mesh,
     Raycaster
 } from 'three'
@@ -23,18 +23,21 @@ export default class CreateCommand extends Command {
             opacity: 0.5,
             transparent: true
         });
-        this.rollOverMesh = new Mesh(rollOverGeo, rollOverMaterial);
-        this.main.scene.add(this.rollOverMesh);
+        this.main.tempMesh = new Mesh(rollOverGeo, rollOverMaterial);
+        this.main.scene.add(this.main.tempMesh);
     }
 
     mousemove (e) {
+        this.main.tempMesh.visible = true;
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.main.objects);
         if (intersects.length > 0) {
             let intersect = intersects[0];
-            this.rollOverMesh.position.copy(intersect.point).add(intersect.face.normal);
-            this.rollOverMesh.position.divideScalar(8).floor().multiplyScalar(8).addScalar(4);
+            this.main.tempMesh.position.copy(intersect.point).add(intersect.face.normal);
+            this.main.tempMesh.position.divideScalar(8).floor().multiplyScalar(8).addScalar(4);
+        } else {
+            this.main.tempMesh.visible = false;
         }
         // this.main.render();
     }

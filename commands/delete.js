@@ -10,6 +10,8 @@ export default class CreateCommand extends Command {
 
     mousemove (e) {
         console.log('Command: mousemove delete', e, this)
+        this.main.tempMesh.visible = false
+        // TODO: si rende trasparente quello sottolineato...
     }
 
     pointerdown (e) {
