@@ -19,13 +19,17 @@ export default class KeyboardEvents {
                 this.currentCommand = 'DELETE';
             
             } else if (e.key == '1') {
-                this.main.createGrid(64)
+                this.main.gridSize = 64
+                this.main.createGrid(this.main.gridSize)
             } else if (e.key == '2') {
-                this.main.createGrid(32)
+                this.main.gridSize = 32
+                this.main.createGrid(this.main.gridSize)
             } else if (e.key == '3') {
-                this.main.createGrid(16)
+                this.main.gridSize = 16
+                this.main.createGrid(this.main.gridSize)
             } else if (e.key == '4') {
-                this.main.createGrid(8)
+                this.main.gridSize = 8
+                this.main.createGrid(this.main.gridSize)
             }
         }
     }

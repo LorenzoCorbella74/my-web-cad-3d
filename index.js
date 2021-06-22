@@ -7,7 +7,7 @@ import {
   // LIGHTS
   AmbientLight, DirectionalLight,
   // GEOMETRIES
-   PlaneBufferGeometry,
+  PlaneBufferGeometry,
   PerspectiveCamera,
   WebGLRenderer,
   // HELPERS
@@ -45,10 +45,8 @@ class WebEditor3D {
     this.scene.add(this.mesh)
 
     // GRID
-    const size = 128;
-    const divisions = 16;
-    this.gridHelper = new GridHelper(size, divisions, 0x888888, 0x444444);
-    this.scene.add(this.gridHelper);
+    this.gridSize = 16
+    this.createGrid()
 
     // PLANE
     const geoPlane = new PlaneBufferGeometry(128, 128);
@@ -139,6 +137,18 @@ class WebEditor3D {
 
   return new THREE.LineSegments(geometry, material);
 } */
+
+  createGrid (div = 16) {
+    if(this.gridHelper){
+      this.gridHelper.material.dispose()
+      this.gridHelper.geometry.dispose()
+      this.scene.remove(this.gridHelper)
+    }
+    const size = 128;
+    const divisions = div;
+    this.gridHelper = new GridHelper(size, divisions, 0x888888, 0x444444);
+    this.scene.add(this.gridHelper);
+  }
 
   startListening () {
     window.addEventListener('resize', this.onWindowResize.bind(this), false)
