@@ -14,6 +14,10 @@ export default class EditCommand extends Command {
         this.main.tempMesh.visible = false
     }
 
+    get size(){
+        return this.main.gridSize / this.main.gridDiv
+    }
+
     pointerdown (e) {
         // console.log('Command: pointerdown edit', e, this)
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
@@ -37,7 +41,7 @@ export default class EditCommand extends Command {
                         cube.userData.scaleOngoing = false;
                     })
                 let move = new TWEEN.Tween(cube.position).to({
-                    x: cube.position.x + localNormal.x * 4,
+                    x: cube.position.x + localNormal.x * this.size/2,
                     y: cube.position.y,
                     z: cube.position.z
                 }, 251)
@@ -65,7 +69,7 @@ export default class EditCommand extends Command {
                     })
                 let move = new TWEEN.Tween(cube.position).to({
                     x: cube.position.x,
-                    y: cube.position.y + localNormal.y * 4,
+                    y: cube.position.y + localNormal.y * this.size/2,
                     z: cube.position.z
                 }, 251)
                     .easing(TWEEN.Easing.Elastic.Out)
@@ -93,7 +97,7 @@ export default class EditCommand extends Command {
                 let move = new TWEEN.Tween(cube.position).to({
                     x: cube.position.x,
                     y: cube.position.y,
-                    z: cube.position.z + localNormal.z * 4
+                    z: cube.position.z + localNormal.z * this.size/2
                 }, 251)
                     .easing(TWEEN.Easing.Elastic.Out)
                     .onStart(() => {

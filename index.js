@@ -45,7 +45,8 @@ class WebEditor3D {
     this.scene.add(this.mesh)
 
     // GRID
-    this.gridSize = 16
+    this.gridSize = 128
+    this.gridDiv = 16
     this.createGrid()
 
     // PLANE
@@ -103,50 +104,14 @@ class WebEditor3D {
     this.startLoop()
   }
 
-  /* function createGrid(opts) {
-  var config = opts || {
-    height: 64,
-    width: 64,
-    linesHeight: 8,
-    linesWidth: 8,
-    color: 0x635d60
-  };
-
-  const material = new THREE.LineBasicMaterial({
-    color: config.color,
-    opacity: 0.65
-  });
-  material.transparent = true;
-
-  const points = [];
-  const stepw = config.linesWidth || 8;
-  const steph = config.linesHeight || 8;
-
-  //width
-  for (let i = -config.width; i <= config.width; i += stepw) {
-    points.push(new THREE.Vector3(-config.height, 0, i));
-    points.push(new THREE.Vector3(config.height, 0, i));
-  }
-  //height
-  for (let i = -config.height; i <= config.height; i += steph) {
-    points.push(new THREE.Vector3(i, 0, -config.width));
-    points.push(new THREE.Vector3(i, 0, config.width));
-  }
-
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-
-  return new THREE.LineSegments(geometry, material);
-} */
-
   createGrid (div = 16) {
-    if(this.gridHelper){
+    if (this.gridHelper) {
       this.gridHelper.material.dispose()
       this.gridHelper.geometry.dispose()
       this.scene.remove(this.gridHelper)
     }
-    const size = 128;
-    const divisions = div;
-    this.gridHelper = new GridHelper(size, divisions, 0x888888, 0x444444);
+    this.gridDiv = div;
+    this.gridHelper = new GridHelper(this.gridSize, this.gridDiv, 0x888888, 0x444444);
     this.scene.add(this.gridHelper);
   }
 
