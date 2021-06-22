@@ -9,6 +9,20 @@ export default class CreateCommand extends Command {
         this.intersected = null;
     }
 
+    hide(obj){
+        [0,1,2,3,4,5].forEach(face => {
+            obj.material[face].opacity = 0.5;
+            obj.material[face].transparent = true;
+        });
+    }
+
+    show(obj){
+        [0,1,2,3,4,5].forEach(face => {
+            obj.material[face].opacity = 1;
+            obj.material[face].transparent = false;
+        });
+    }
+
     mousemove (e) {
         // console.log('Command: mousemove delete', e, this)
         this.main.tempMesh.visible = false
@@ -19,21 +33,15 @@ export default class CreateCommand extends Command {
         if (intersects.length > 0 && intersects[0].object.name !== 'hidden_plane') {
             if (this.intersected != intersects[0].object) {
                 if (this.intersected) {
-                    // this.intersected.material.color.setHex(this.intersected.currentHex);
                     this.intersected.material.opacity = 1;
                     this.intersected.material.transparent = false;
                 }
                 this.intersected = intersects[0].object;
-                this.intersected.currentHex = this.intersected.material.color.getHex();
-                // this.intersected.material.color.setHex( 0xff0000);
-                this.intersected.material.opacity = 0.5;
-                this.intersected.material.transparent = true;
+                this.hide(this.intersected)
             }
         } else {
             if (this.intersected) {
-                // this.intersected.material.color.setHex(this.intersected.currentHex);
-                this.intersected.material.opacity = 1;
-                this.intersected.material.transparent = false;
+               this.show(this.intersected)
             }
             this.intersected = null;
         }

@@ -60,7 +60,7 @@ class WebEditor3D {
     this.scene.add(plane);
     plane.position.y = -0.001;
     plane.name = "hidden_plane";
-    plane.visible = true;
+    plane.visible = false;
     this.objects.push(plane);
 
     // lights
@@ -111,6 +111,7 @@ class WebEditor3D {
     }
     this.gridDiv = div;
     this.gridHelper = new GridHelper(this.gridSize, this.gridDiv, 0x888888, 0x444444);
+    this.gridHelper.name = 'grid'
     this.scene.add(this.gridHelper);
   }
 

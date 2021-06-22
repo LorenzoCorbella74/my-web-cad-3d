@@ -7,11 +7,33 @@ export default class EditCommand extends Command {
     constructor(state) {
         super(state)
         this.raycaster = new Raycaster();
+        this.activeFaceIndex = 0;
+        this.intersected = null;
     }
 
     mousemove (e) {
         // console.log('Command: mousemove edit', e, this)
         this.main.tempMesh.visible = false
+        this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
+        let intersects = this.raycaster.intersectObjects(this.main.objects);
+
+        if (intersects.length > 0 && intersects[0].object.name !== 'hidden_plane') {
+            if (intersects[0].face.materialIndex !== this.activeFaceIndex &&
+                this.activeFaceIndex !== -1) {
+                this.intersected.material[this.activeFaceIndex].color.setHex(0xe1f4f3);
+            }
+            this.intersected = intersects[0].object;
+            this.activeFaceIndex = intersects[0].face.materialIndex;
+            this.intersected.material[this.activeFaceIndex].color.setHex(0x5f5050);
+        } else {
+            if (this.activeFaceIndex !== -1 && this.intersected/* && intersects[0].face.materialIndex !== this.activeFaceIndex */
+                ) {
+                // si rimette il colore di default
+                this.intersected.material[this.activeFaceIndex].color.setHex(0xe1f4f3);
+            }
+            this.activeFaceIndex = -1;
+            this.intersected = null
+        }
     }
 
     get size () {

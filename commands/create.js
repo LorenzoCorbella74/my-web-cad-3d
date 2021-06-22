@@ -55,8 +55,27 @@ export default class CreateCommand extends Command {
             if (intersects.length > 0) {
                 let intersect = intersects[0];
                 const cubeGeo = new BoxBufferGeometry(this.size, this.size, this.size);
-                const cubeMaterial = new MeshLambertMaterial({ color: 0xe1f4f3 });
-                const voxel = new Mesh(cubeGeo, cubeMaterial);
+                const materials = [
+                    new MeshLambertMaterial({
+                      color: 0xe1f4f3
+                    }),
+                    new MeshLambertMaterial({
+                      color: 0xe1f4f3
+                    }),
+                    new MeshLambertMaterial({
+                      color: 0xe1f4f3
+                    }),
+                    new MeshLambertMaterial({
+                      color: 0xe1f4f3
+                    }),
+                    new MeshLambertMaterial({
+                      color: 0xe1f4f3
+                    }),
+                    new MeshLambertMaterial({
+                      color: 0xe1f4f3
+                    })
+                  ];
+                const voxel = new Mesh(cubeGeo, materials);
                 voxel.position.copy(intersect.point).add(intersect.face.normal);
                 voxel.position.divideScalar(this.size).floor().multiplyScalar(this.size).addScalar(this.size/2);
                 this.main.scene.add(voxel);
