@@ -39,8 +39,8 @@ export default class CreateCommand extends Command {
         }
     }
 
-    pointerdown (e) {
-        // console.log('Command: pointerdown delete', e, this)
+    click (e) {
+        // console.log('Command: click delete', e, this)
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.main.objects);

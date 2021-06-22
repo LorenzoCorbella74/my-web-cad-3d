@@ -18,9 +18,10 @@ export default class EditCommand extends Command {
         return this.main.gridSize / this.main.gridDiv
     }
 
-    pointerdown (e) {
-        let addOrRemove = e.button == 0 ? 1 : -1
-        console.log('Command: pointerdown edit', e, this)
+    click (e) {
+        let addOrRemove = !e.ctrlKey ? 1 : -1
+        // let addOrRemove = e.button == 0 ? 1 : -1
+        console.log('Command: click edit', e, this)
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.main.objects);

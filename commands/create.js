@@ -46,22 +46,24 @@ export default class CreateCommand extends Command {
         // this.main.render();
     }
 
-    pointerdown (e) {
-        console.log('Command: pointerdown', e, this)
-        this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
-        // calculate objects intersecting the picking ray
-        let intersects = this.raycaster.intersectObjects(this.main.objects);
-        if (intersects.length > 0) {
-            let intersect = intersects[0];
-            const cubeGeo = new BoxBufferGeometry(this.size, this.size, this.size);
-            const cubeMaterial = new MeshLambertMaterial({ color: 0xe1f4f3 });
-            const voxel = new Mesh(cubeGeo, cubeMaterial);
-            voxel.position.copy(intersect.point).add(intersect.face.normal);
-            voxel.position.divideScalar(this.size).floor().multiplyScalar(this.size).addScalar(this.size/2);
-            this.main.scene.add(voxel);
-            this.main.objects.push(voxel);
+    click (e) {
+        console.log('Command: click', e, this)
+        if(e.ctrlKey){
+            this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
+            // calculate objects intersecting the picking ray
+            let intersects = this.raycaster.intersectObjects(this.main.objects);
+            if (intersects.length > 0) {
+                let intersect = intersects[0];
+                const cubeGeo = new BoxBufferGeometry(this.size, this.size, this.size);
+                const cubeMaterial = new MeshLambertMaterial({ color: 0xe1f4f3 });
+                const voxel = new Mesh(cubeGeo, cubeMaterial);
+                voxel.position.copy(intersect.point).add(intersect.face.normal);
+                voxel.position.divideScalar(this.size).floor().multiplyScalar(this.size).addScalar(this.size/2);
+                this.main.scene.add(voxel);
+                this.main.objects.push(voxel);
+            }
+            // this.main.render();
         }
-        // this.main.render();
     }
 
     pointerup (event) {

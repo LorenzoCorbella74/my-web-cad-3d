@@ -11,8 +11,8 @@ export default class Command {
         this.main.mouse.event = e;
     }
 
-    pointerdown(e) {
-        console.log('Command: pointerdown', e, this)
+    click(e) {
+        console.log('Command: click', e, this)
     }
 
     pointerup(event) {

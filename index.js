@@ -42,7 +42,6 @@ class WebEditor3D {
     // SCENE
     this.scene = new Scene()
     this.scene.background = new Color(parameters.background)
-    this.scene.add(this.mesh)
 
     // GRID
     this.gridSize = 128
@@ -118,9 +117,9 @@ class WebEditor3D {
   startListening () {
     window.addEventListener('resize', this.onWindowResize.bind(this), false)
     window.oncontextmenu = () => false;
-    window.addEventListener('mousemove', this.globalHandler.bind(this), false);
-    window.addEventListener('pointerdown', this.globalHandler.bind(this), false);
-    window.addEventListener('pointerup', this.globalHandler.bind(this), false);
+    this.renderer.domElement.addEventListener('mousemove', this.globalHandler.bind(this), false);
+    this.renderer.domElement.addEventListener('click', this.globalHandler.bind(this), false);
+    // document.addEventListener('pointerup', this.globalHandler.bind(this), false);
   }
 
   globalHandler (ev) {
