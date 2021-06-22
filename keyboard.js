@@ -11,7 +11,7 @@ export default class KeyboardEvents {
 
     startListenDocumentKeyup () {
         document.onkeyup = (e) => {
-            if (e.key == 'Escape' || e.key == 'c') {
+            if (e.key == 'Escape' || e.key == ' ') {
                 this.currentCommand = 'CREATE';
             } else if (e.key == 'e') {
                 this.currentCommand = 'EDIT';

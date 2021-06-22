@@ -14,12 +14,13 @@ export default class EditCommand extends Command {
         this.main.tempMesh.visible = false
     }
 
-    get size(){
+    get size () {
         return this.main.gridSize / this.main.gridDiv
     }
 
     pointerdown (e) {
-        // console.log('Command: pointerdown edit', e, this)
+        let addOrRemove = e.button == 0 ? 1 : -1
+        console.log('Command: pointerdown edit', e, this)
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.main.objects);
@@ -29,8 +30,9 @@ export default class EditCommand extends Command {
             let cube = intersects[0].object;
             if (cube.userData.moveOngoing || cube.userData.scaleOngoing) return
             if (localNormal.x) {
+                let scaleAmount = cube.scale.x + 1 * addOrRemove
                 let scale = new TWEEN.Tween(cube.scale).to({
-                    x: cube.scale.x + 1,
+                    x: scaleAmount == 0 ? 1 : scaleAmount,
                     y: cube.scale.y,
                     z: cube.scale.z
                 }, 250)
@@ -40,25 +42,28 @@ export default class EditCommand extends Command {
                     }).onComplete(() => {
                         cube.userData.scaleOngoing = false;
                     })
-                let move = new TWEEN.Tween(cube.position).to({
-                    x: cube.position.x + localNormal.x * this.size/2,
-                    y: cube.position.y,
-                    z: cube.position.z
-                }, 251)
-                    .easing(TWEEN.Easing.Elastic.Out)
-                    .onStart(() => {
-                        cube.userData.moveOngoing = true;
-                    })
-                    .onComplete(() => {
-                        cube.userData.moveOngoing = false;
-                    })
                 scale.start()
-                move.start()
+                if (scaleAmount !== 0) {
+                    let move = new TWEEN.Tween(cube.position).to({
+                        x: cube.position.x + localNormal.x * this.size / 2 * addOrRemove,
+                        y: cube.position.y,
+                        z: cube.position.z
+                    }, 251)
+                        .easing(TWEEN.Easing.Elastic.Out)
+                        .onStart(() => {
+                            cube.userData.moveOngoing = true;
+                        })
+                        .onComplete(() => {
+                            cube.userData.moveOngoing = false;
+                        })
+                    move.start()
+                }
             }
             if (localNormal.y) {
+                let scaleAmount = cube.scale.y + 1 * addOrRemove
                 let scale = new TWEEN.Tween(cube.scale).to({
                     x: cube.scale.x,
-                    y: cube.scale.y + 1,
+                    y: scaleAmount == 0 ? 1 : scaleAmount,
                     z: cube.scale.z
                 }, 250)
                     .easing(TWEEN.Easing.Elastic.Out)
@@ -67,26 +72,29 @@ export default class EditCommand extends Command {
                     }).onComplete(() => {
                         cube.userData.scaleOngoing = false;
                     })
-                let move = new TWEEN.Tween(cube.position).to({
-                    x: cube.position.x,
-                    y: cube.position.y + localNormal.y * this.size/2,
-                    z: cube.position.z
-                }, 251)
-                    .easing(TWEEN.Easing.Elastic.Out)
-                    .onStart(() => {
-                        cube.userData.moveOngoing = true;
-                    })
-                    .onComplete(() => {
-                        cube.userData.moveOngoing = false;
-                    })
                 scale.start()
-                move.start()
+                if (scaleAmount !== 0) {
+                    let move = new TWEEN.Tween(cube.position).to({
+                        x: cube.position.x,
+                        y: cube.position.y + localNormal.y * this.size / 2 * addOrRemove,
+                        z: cube.position.z
+                    }, 251)
+                        .easing(TWEEN.Easing.Elastic.Out)
+                        .onStart(() => {
+                            cube.userData.moveOngoing = true;
+                        })
+                        .onComplete(() => {
+                            cube.userData.moveOngoing = false;
+                        })
+                    move.start()
+                }
             }
             if (localNormal.z) {
+                let scaleAmount = cube.scale.z + 1 * addOrRemove
                 let scale = new TWEEN.Tween(cube.scale).to({
                     x: cube.scale.x,
                     y: cube.scale.y,
-                    z: cube.scale.z + 1
+                    z: scaleAmount == 0 ? 1 : scaleAmount
                 }, 250)
                     .easing(TWEEN.Easing.Elastic.Out)
                     .onStart(() => {
@@ -94,20 +102,23 @@ export default class EditCommand extends Command {
                     }).onComplete(() => {
                         cube.userData.scaleOngoing = false;
                     })
-                let move = new TWEEN.Tween(cube.position).to({
-                    x: cube.position.x,
-                    y: cube.position.y,
-                    z: cube.position.z + localNormal.z * this.size/2
-                }, 251)
-                    .easing(TWEEN.Easing.Elastic.Out)
-                    .onStart(() => {
-                        cube.userData.moveOngoing = true;
-                    })
-                    .onComplete(() => {
-                        cube.userData.moveOngoing = false;
-                    })
                 scale.start()
-                move.start()
+                if (scaleAmount !== 0) {
+                    let move = new TWEEN.Tween(cube.position).to({
+                        x: cube.position.x,
+                        y: cube.position.y,
+                        z: cube.position.z + localNormal.z * this.size / 2 * addOrRemove
+                    }, 251)
+                        .easing(TWEEN.Easing.Elastic.Out)
+                        .onStart(() => {
+                            cube.userData.moveOngoing = true;
+                        })
+                        .onComplete(() => {
+                            cube.userData.moveOngoing = false;
+                        })
+                    move.start()
+
+                }
             }
         }
         // this.main.render();
