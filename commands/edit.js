@@ -7,8 +7,15 @@ export default class EditCommand extends Command {
     constructor(state) {
         super(state)
         this.raycaster = new Raycaster();
-        this.activeFaceIndex = 0;
+        this.activeFaceIndex = -1;
         this.intersected = null;
+    }
+
+    show(obj){
+        [0,1,2,3,4,5].forEach(face => {
+            obj.material[face].opacity = 1;
+            obj.material[face].transparent = false;
+        });
     }
 
     mousemove (e) {
@@ -23,12 +30,15 @@ export default class EditCommand extends Command {
                 this.intersected.material[this.activeFaceIndex].opacity = 1;
                 this.intersected.material[this.activeFaceIndex].transparent = false;
             }
+            if(this.intersected && this.intersected != intersects[0].object){
+                this.show(this.intersected)
+            }
             this.intersected = intersects[0].object;
             this.activeFaceIndex = intersects[0].face.materialIndex;
             this.intersected.material[this.activeFaceIndex].opacity = 0.5;
             this.intersected.material[this.activeFaceIndex].transparent = true;
         } else {
-            if (this.activeFaceIndex !== -1 && this.intersected) {
+            if (this.intersected) {
                 // si rimette il colore di default
                 this.intersected.material[this.activeFaceIndex].opacity = 1;
                 this.intersected.material[this.activeFaceIndex].transparent = false;
