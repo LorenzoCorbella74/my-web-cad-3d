@@ -22,8 +22,9 @@ export default class CreateCommand extends Command {
         const rollOverGeo = new BoxBufferGeometry(this.size, this.size, this.size);
         const rollOverMaterial = new MeshBasicMaterial({
             color: 0xffffff,
-            opacity: 0.35,
-            transparent: true
+            opacity: 0.15,
+            transparent: true,
+            /* wireframe:true */
         });
         this.main.tempMesh = new Mesh(rollOverGeo, rollOverMaterial);
         this.main.scene.add(this.main.tempMesh);
@@ -57,22 +58,22 @@ export default class CreateCommand extends Command {
                 const cubeGeo = new BoxBufferGeometry(this.size, this.size, this.size);
                 const materials = [
                     new MeshLambertMaterial({
-                      color: 0xe1f4f3
+                      color: this.main.selectedColorInPanel
                     }),
                     new MeshLambertMaterial({
-                      color: 0xe1f4f3
+                      color: this.main.selectedColorInPanel
                     }),
                     new MeshLambertMaterial({
-                      color: 0xe1f4f3
+                      color: this.main.selectedColorInPanel
                     }),
                     new MeshLambertMaterial({
-                      color: 0xe1f4f3
+                      color: this.main.selectedColorInPanel
                     }),
                     new MeshLambertMaterial({
-                      color: 0xe1f4f3
+                      color: this.main.selectedColorInPanel
                     }),
                     new MeshLambertMaterial({
-                      color: 0xe1f4f3
+                      color: this.main.selectedColorInPanel
                     })
                   ];
                 const voxel = new Mesh(cubeGeo, materials);

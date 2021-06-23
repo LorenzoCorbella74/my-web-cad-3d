@@ -20,16 +20,18 @@ export default class EditCommand extends Command {
         if (intersects.length > 0 && intersects[0].object.name !== 'hidden_plane') {
             if (intersects[0].face.materialIndex !== this.activeFaceIndex &&
                 this.activeFaceIndex !== -1) {
-                this.intersected.material[this.activeFaceIndex].color.setHex(0xe1f4f3);
+                this.intersected.material[this.activeFaceIndex].opacity = 1;
+                this.intersected.material[this.activeFaceIndex].transparent = false;
             }
             this.intersected = intersects[0].object;
             this.activeFaceIndex = intersects[0].face.materialIndex;
-            this.intersected.material[this.activeFaceIndex].color.setHex(0x5f5050);
+            this.intersected.material[this.activeFaceIndex].opacity = 0.5;
+            this.intersected.material[this.activeFaceIndex].transparent = true;
         } else {
-            if (this.activeFaceIndex !== -1 && this.intersected/* && intersects[0].face.materialIndex !== this.activeFaceIndex */
-                ) {
+            if (this.activeFaceIndex !== -1 && this.intersected) {
                 // si rimette il colore di default
-                this.intersected.material[this.activeFaceIndex].color.setHex(0xe1f4f3);
+                this.intersected.material[this.activeFaceIndex].opacity = 1;
+                this.intersected.material[this.activeFaceIndex].transparent = false;
             }
             this.activeFaceIndex = -1;
             this.intersected = null

@@ -1,3 +1,6 @@
+import './style.css'
+
+
 import {
   Scene,
   Color,
@@ -16,6 +19,7 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import Debug, { parameters } from './debug'
 import KeyboardEvents from './keyboard'
+import CommandsPanel from './commands-panels'
 import TWEEN from '@tweenjs/tween.js'
 
 // COMMANDS
@@ -86,6 +90,9 @@ class WebEditor3D {
     this.mouse = new Vector2();
 
     this.KeyboardEvents = new KeyboardEvents(this)
+
+    this.selectedColorInPanel = '#0074D9'
+    this.colorsPannels = new CommandsPanel(this)
 
     // Commands
     this.commands = {
