@@ -33,8 +33,7 @@ export default class CreateCommand extends Command {
         if (intersects.length > 0 && intersects[0].object.name !== 'hidden_plane') {
             if (this.intersected != intersects[0].object) {
                 if (this.intersected) {
-                    this.intersected.material.opacity = 1;
-                    this.intersected.material.transparent = false;
+                    this.show(this.intersected)
                 }
                 this.intersected = intersects[0].object;
                 this.hide(this.intersected)
