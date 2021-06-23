@@ -22,7 +22,7 @@ export default class CreateCommand extends Command {
         const rollOverGeo = new BoxBufferGeometry(this.size, this.size, this.size);
         const rollOverMaterial = new MeshBasicMaterial({
             color: 0xffffff,
-            opacity: 0.5,
+            opacity: 0.35,
             transparent: true
         });
         this.main.tempMesh = new Mesh(rollOverGeo, rollOverMaterial);

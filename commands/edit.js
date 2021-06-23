@@ -49,11 +49,11 @@ export default class EditCommand extends Command {
         let intersects = this.raycaster.intersectObjects(this.main.objects);
         if (intersects.length > 0 && intersects[0].object.name !== 'hidden_plane') {
             let localNormal = intersects[0].face?.normal || { x: 0, y: 0, z: 0 };
-            console.log(localNormal)
             let cube = intersects[0].object;
+            console.log(localNormal, cube)
             if (cube.userData.moveOngoing || cube.userData.scaleOngoing) return
             if (localNormal.x) {
-                let scaleAmount = cube.scale.x + 1 * addOrRemove
+                let scaleAmount = cube.scale.x + 1 * addOrRemove * (this.size) / cube.geometry.parameters.width
                 let scale = new TWEEN.Tween(cube.scale).to({
                     x: scaleAmount == 0 ? 1 : scaleAmount,
                     y: cube.scale.y,
@@ -83,7 +83,7 @@ export default class EditCommand extends Command {
                 }
             }
             if (localNormal.y) {
-                let scaleAmount = cube.scale.y + 1 * addOrRemove
+                let scaleAmount = cube.scale.y + 1 * addOrRemove * (this.size) / cube.geometry.parameters.height
                 let scale = new TWEEN.Tween(cube.scale).to({
                     x: cube.scale.x,
                     y: scaleAmount == 0 ? 1 : scaleAmount,
@@ -113,7 +113,7 @@ export default class EditCommand extends Command {
                 }
             }
             if (localNormal.z) {
-                let scaleAmount = cube.scale.z + 1 * addOrRemove
+                let scaleAmount = cube.scale.z + 1 * addOrRemove * (this.size) / cube.geometry.parameters.depth
                 let scale = new TWEEN.Tween(cube.scale).to({
                     x: cube.scale.x,
                     y: cube.scale.y,
