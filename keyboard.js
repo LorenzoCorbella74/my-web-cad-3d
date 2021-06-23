@@ -18,18 +18,22 @@ export default class KeyboardEvents {
             } else if (e.key == 'd') {
                 this.currentCommand = 'DELETE';
             } else if (e.key == '1') {
-                this.main.gridDiv = 64
+                this.main.gridDiv = 128
                 this.main.createGrid(this.main.gridDiv)
             } else if (e.key == '2') {
-                this.main.gridDiv = 32
+                this.main.gridDiv = 64
                 this.main.createGrid(this.main.gridDiv)
             } else if (e.key == '3') { // default
-                this.main.gridDiv = 16
+                this.main.gridDiv = 32
                 this.main.createGrid(this.main.gridDiv)
             } else if (e.key == '4') {
+                this.main.gridDiv = 16
+                this.main.createGrid(this.main.gridDiv)
+            } else if (e.key == '5') {
                 this.main.gridDiv = 8
                 this.main.createGrid(this.main.gridDiv)
             }
+
         }
     }
 }
