@@ -36,3 +36,11 @@ ul {
 .selected-color {
     border: 4px solid orange;
 }
+
+#cursor {
+    visibility: hidden;
+    position: absolute;
+    color: white;
+    font-family: sans-serif;
+    z-index: 50;
+}

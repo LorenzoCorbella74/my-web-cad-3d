@@ -37,6 +37,12 @@ export default class EditCommand extends Command {
             this.activeFaceIndex = intersects[0].face.materialIndex;
             this.intersected.material[this.activeFaceIndex].opacity = 0.5;
             this.intersected.material[this.activeFaceIndex].transparent = true;
+
+            this.main.cursor.innerHTML = !e.ctrlKey ? '&#129307;' : '&#129308;';
+            this.main.cursor.style.visibility = 'visible';
+            this.main.cursor.style.top = e.clientY + 'px';
+            this.main.cursor.style.left = e.clientX + 18 + 'px';
+
         } else {
             if (this.intersected) {
                 // si rimette il colore di default
@@ -45,6 +51,8 @@ export default class EditCommand extends Command {
             }
             this.activeFaceIndex = -1;
             this.intersected = null
+
+            this.main.cursor.style.visibility = 'hidden';
         }
     }
 

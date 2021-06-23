@@ -94,6 +94,8 @@ class WebEditor3D {
     this.selectedColorInPanel = '#0074D9'
     this.colorsPannels = new CommandsPanel(this)
 
+    this.cursor = document.getElementById('cursor');
+
     // Commands
     this.commands = {
       'CREATE': new CreateCommand(this),
