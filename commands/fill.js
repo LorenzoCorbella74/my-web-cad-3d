@@ -38,17 +38,14 @@ export default class FillCommand extends Command {
                 this.intersected = intersects[0].object;
                 this.hide(this.intersected)
             }
-            this.main.cursor.innerHTML = 'Fill color';
-            this.main.cursor.style.visibility = 'visible';
-            this.main.cursor.style.top = e.clientY + 'px';
-            this.main.cursor.style.left = e.clientX + 18 + 'px';
+            this.main.cursor.show('Fill color', e)
 
         } else {
             if (this.intersected) {
                 this.show(this.intersected)
             }
             this.intersected = null;
-            this.main.cursor.style.visibility = 'hidden';
+            this.main.cursor.hide()
         }
     }
 

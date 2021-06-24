@@ -27,6 +27,7 @@ import CreateCommand from './commands/create'
 import DeleteCommand from './commands/delete'
 import EditCommand from './commands/edit'
 import FillCommand from './commands/fill'
+import Cursor from './cursor'
 
 class WebEditor3D {
 
@@ -95,7 +96,7 @@ class WebEditor3D {
     this.selectedColorInPanel = '#0074D9'
     this.colorsPannels = new CommandsPanel(this)
 
-    this.cursor = document.getElementById('cursor');
+    this.cursor = new Cursor()
     
 
     // Commands

@@ -39,6 +39,7 @@ export default class Debug {
         light.addColor(parameters, "directionalLight").onChange((color) => {
             this.world.directionalLight.color.set(color)
         });
-        // this.gui.close();
+        
+        this.gui.close();
     }
 }
