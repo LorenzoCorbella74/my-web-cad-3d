@@ -38,7 +38,8 @@ export default class EditCommand extends Command {
             this.intersected.material[this.activeFaceIndex].opacity = 0.5;
             this.intersected.material[this.activeFaceIndex].transparent = true;
 
-            this.main.cursor.innerHTML = !e.ctrlKey ? '&#129307;' : '&#129308;';
+            this.main.cursor.innerHTML = !e.ctrlKey ? 'Pull': 'Push' //'&#129307;' : '&#129308;';
+            document.body.style.cursor = 'pointer';
             this.main.cursor.style.visibility = 'visible';
             this.main.cursor.style.top = e.clientY + 'px';
             this.main.cursor.style.left = e.clientX + 18 + 'px';
@@ -53,6 +54,7 @@ export default class EditCommand extends Command {
             this.intersected = null
 
             this.main.cursor.style.visibility = 'hidden';
+            document.body.style.cursor = 'default';
         }
     }
 

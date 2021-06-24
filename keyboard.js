@@ -5,7 +5,9 @@ export default class KeyboardEvents {
         this.main = main;
         
         this.currentCommand = 'CREATE'  // DEFAULTS
-
+        this.currentCommandDiv = document.getElementById('currentCommand');
+        this.currentCommandDiv.innerHTML= this.currentCommand
+        
         this.startListenDocumentKeyup()
     }
 
@@ -17,6 +19,8 @@ export default class KeyboardEvents {
                 this.currentCommand = 'EDIT';
             } else if (e.key == 'd') {
                 this.currentCommand = 'DELETE';
+            } else if (e.key == 'f') {
+                this.currentCommand = 'FILL';
             } else if (e.key == '1') {
                 this.main.gridDiv = 128
                 this.main.createGrid(this.main.gridDiv)
@@ -33,7 +37,8 @@ export default class KeyboardEvents {
                 this.main.gridDiv = 8
                 this.main.createGrid(this.main.gridDiv)
             }
-
+            this.currentCommandDiv.innerHTML= this.currentCommand
         }
     }
+
 }

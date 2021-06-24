@@ -42,7 +42,7 @@ export default class CreateCommand extends Command {
             this.main.tempMesh.position.copy(intersect.point).add(intersect.face.normal);
             this.main.tempMesh.position.divideScalar(this.size).floor().multiplyScalar(this.size).addScalar(this.size/2);
         
-            this.main.cursor.innerHTML = '&#128204;';
+            this.main.cursor.innerHTML = 'Create' // '&#128204;';
             this.main.cursor.style.visibility = 'visible';
             this.main.cursor.style.top = e.clientY + 'px';
             this.main.cursor.style.left = e.clientX + 18 + 'px';

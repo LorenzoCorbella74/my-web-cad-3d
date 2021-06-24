@@ -26,6 +26,7 @@ import TWEEN from '@tweenjs/tween.js'
 import CreateCommand from './commands/create'
 import DeleteCommand from './commands/delete'
 import EditCommand from './commands/edit'
+import FillCommand from './commands/fill'
 
 class WebEditor3D {
 
@@ -95,12 +96,14 @@ class WebEditor3D {
     this.colorsPannels = new CommandsPanel(this)
 
     this.cursor = document.getElementById('cursor');
+    
 
     // Commands
     this.commands = {
       'CREATE': new CreateCommand(this),
       'DELETE': new DeleteCommand(this),
-      'EDIT': new EditCommand(this)
+      'EDIT': new EditCommand(this),
+      'FILL': new FillCommand(this)
     }
 
     // STATS + DAT.GUI

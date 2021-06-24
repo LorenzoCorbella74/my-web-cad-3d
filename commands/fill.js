@@ -1,7 +1,7 @@
 import Command from './command';
 import { Raycaster } from 'three'
 
-export default class DeleteCommand extends Command {
+export default class FillCommand extends Command {
 
     constructor(state) {
         super(state)
@@ -38,7 +38,7 @@ export default class DeleteCommand extends Command {
                 this.intersected = intersects[0].object;
                 this.hide(this.intersected)
             }
-            this.main.cursor.innerHTML = 'Delete' //'&#128128;';
+            this.main.cursor.innerHTML = 'Fill color';
             this.main.cursor.style.visibility = 'visible';
             this.main.cursor.style.top = e.clientY + 'px';
             this.main.cursor.style.left = e.clientX + 18 + 'px';
@@ -53,21 +53,22 @@ export default class DeleteCommand extends Command {
     }
 
     click (e) {
-        // console.log('Command: click delete', e, this)
+        // console.log('Command: click fill', e, this)
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
         let intersects = this.raycaster.intersectObjects(this.main.objects);
         if (intersects.length > 0) {
             let intersect = intersects[0];
             if (intersect.object.name !== 'hidden_plane') {
-                this.main.scene.remove(intersect.object);
-                this.main.objects.splice(this.main.objects.indexOf(intersect.object), 1);
+                [0, 1, 2, 3, 4, 5].forEach(face => {
+                    intersect.object.material[face].color.setStyle(this.main.selectedColorInPanel)
+                });  
             }
         }
         // this.main.render();
     }
 
     pointerup (event) {
-        // console.log('Command: pointerup delete', event, this)
+        // console.log('Command: pointerup fill', event, this)
     }
 }

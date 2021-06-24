@@ -44,3 +44,13 @@ ul {
     font-family: sans-serif;
     z-index: 50;
 }
+
+#currentCommand {
+    position: absolute;
+    color: white;
+    font-family: sans-serif;
+    z-index: 50;
+    top: 4%;
+    left: 47%;
+    text-align: center;
+}
