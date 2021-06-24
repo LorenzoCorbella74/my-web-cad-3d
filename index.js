@@ -1,6 +1,6 @@
 import './style.css'
 
-
+// LIBS
 import {
   Scene,
   Color,
@@ -17,17 +17,19 @@ import {
   GridHelper
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import TWEEN from '@tweenjs/tween.js'
+
+// APP
 import Debug, { parameters } from './debug'
 import KeyboardEvents from './keyboard'
 import CommandsPanel from './commands-panels'
-import TWEEN from '@tweenjs/tween.js'
+import Cursor from './cursor'
 
 // COMMANDS
 import CreateCommand from './commands/create'
 import DeleteCommand from './commands/delete'
 import EditCommand from './commands/edit'
 import FillCommand from './commands/fill'
-import Cursor from './cursor'
 
 class WebEditor3D {
 
@@ -92,13 +94,9 @@ class WebEditor3D {
     this.mouse = new Vector2();
 
     this.KeyboardEvents = new KeyboardEvents(this)
-
-    this.selectedColorInPanel = '#0074D9'
-    this.colorsPannels = new CommandsPanel(this)
-
+    this.colorsPanel = new CommandsPanel(this)
     this.cursor = new Cursor()
-    
-
+  
     // Commands
     this.commands = {
       'CREATE': new CreateCommand(this),

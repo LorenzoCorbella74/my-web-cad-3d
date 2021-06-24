@@ -58,7 +58,7 @@ export default class FillCommand extends Command {
             let intersect = intersects[0];
             if (intersect.object.name !== 'hidden_plane') {
                 [0, 1, 2, 3, 4, 5].forEach(face => {
-                    intersect.object.material[face].color.setStyle(this.main.selectedColorInPanel)
+                    intersect.object.material[face].color.setStyle(this.main.colorsPanel.selectedColor)
                 });  
             }
         }

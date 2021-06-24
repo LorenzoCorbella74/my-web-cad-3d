@@ -41,22 +41,11 @@ export default class CommandsPanel {
         this.main = app
         
         this.colors = document.querySelector('.colors');
-
         this.generateColors();
 
-        this.adjustColorSelection(this.main.selectedColorInPanel)
+        this.selectedColor = '#0074D9' // DEFAULT
 
-        // EVENTS
-
-        // EVENTS from USER SELECTION
-        document.body.addEventListener('SELECT-ITEM', (passed) => {
-            console.log(`Selected element: ${passed.detail}`);
-            if (passed.detail || passed.detail == 0) {
-                // this.main.selectedColorInPanel = 'todo';
-                // this.adjustColorSelection(this.main.selectedColorInPanel)
-            }
-        }, true);
-
+        this.adjustColorSelection(this.selectedColor)
     }
 
     // http://clrs.cc/
@@ -69,7 +58,7 @@ export default class CommandsPanel {
 
     selectColor (evt) {
         let c = evt.target.dataset.color;
-        this.main.selectedColorInPanel = c;
+        this.selectedColor = c;
         this.adjustColorSelection(c);
     }
 
@@ -81,17 +70,11 @@ export default class CommandsPanel {
                 items[i].classList.add('selected-color');
             }
         }
-        // TODO
-        /* if (this.main.selected || this.main.selected == 0) {
-            this.main.shapes[this.main.selected].color = this.main.selectedColorInPanel;
-        } */
     }
-
 
     click (e) {
         console.log(`Event from commands panel: ${e.target.dataset.cmd}`);
     }
-
     
     import () {
         let input = document.getElementById('file-input');
