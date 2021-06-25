@@ -25,6 +25,7 @@ export default class Debug {
         renderer.add(this.world, "startLoop").name('Run loop');
         renderer.add(this.world, "stopLoop").name('Stop loop');
         renderer.add(this, "toggleAxes").name('Toggle Axes');
+        renderer.add(this, "toggleWireframe").name('Toggle Wireframe');
         renderer.addColor(parameters, "background").onChange((color) => {
             this.world.scene.background.set(color)
         });
@@ -46,7 +47,7 @@ export default class Debug {
         this.gui.close();
     }
 
-    toggleAxes(){
+    toggleAxes () {
         this.world.scene.traverse(function (node) {
             if (node instanceof Mesh && node.children.length > 0) {
                 node.children.forEach(element => {
@@ -54,6 +55,14 @@ export default class Debug {
                         element.visible = !element.visible
                     }
                 });
+            }
+        });
+    }
+
+    toggleWireframe () {
+        this.world.scene.traverse(function (node) {
+            if (node instanceof Mesh) {
+                node.material.wireframe = !node.material.wireframe
             }
         });
     }

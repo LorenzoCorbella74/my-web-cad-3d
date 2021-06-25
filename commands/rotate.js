@@ -61,7 +61,7 @@ export default class RotateXCommand extends Command {
                 this.intersected = intersects[0].object;
                 this.hide(this.intersected)
             }
-            this.main.cursor.show('Totate on local X axis', e)
+            this.main.cursor.show(`Rotate on global ${this.main.currentRotationAxe} axis`, e)
 
         } else {
             if (this.intersected) {
@@ -73,6 +73,7 @@ export default class RotateXCommand extends Command {
     }
 
     click (e) {
+        let rotationSign = !e.ctrlKey ? 1 : -1
         // console.log('Command: click fill', e, this)
         this.raycaster.setFromCamera(this.main.mouse, this.main.camera);
         // calculate objects intersecting the picking ray
@@ -82,8 +83,8 @@ export default class RotateXCommand extends Command {
             if (intersect.object.name !== 'hidden_plane') {
                 // intersect.object.rotateX(Math.PI/2)
                 this.tweenRotate(intersect.object.rotation, {
-                    y: intersect.object.rotation.y + Math.PI/2
-                }, undefined, undefined, intersect.object )
+                    [this.main.currentRotationAxe]: intersect.object.rotation[this.main.currentRotationAxe] + Math.PI / 2 * rotationSign
+                }, undefined, undefined, intersect.object)
             }
         }
         // this.main.render();

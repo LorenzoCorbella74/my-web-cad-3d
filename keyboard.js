@@ -8,6 +8,10 @@ export default class KeyboardEvents {
         this.shapePosition = 0
         this.main.currentShape = 'cube'
 
+        this.rotationAxes = ['x','y','z']
+        this.rotationPosition = 0
+        this.main.currentRotationAxe = 'x'
+
         this.currentCommand = 'CREATE'  // DEFAULTS
         this.currentCommandDiv = document.getElementById('currentCommand');
         this.currentCommandDiv.innerHTML = this.currentCommand
@@ -23,6 +27,14 @@ export default class KeyboardEvents {
         return this.shapes[this.shapePosition]
     }
 
+    getNextRotation () {
+        this.rotationPosition++
+        if (this.rotationPosition > this.rotationAxes.length - 1) {
+            this.rotationPosition = 0
+        }
+        return this.rotationAxes[this.rotationPosition]
+    }
+
     startListenDocumentKeyup () {
         document.onkeyup = (e) => {
             if (e.key == 'Escape' || e.key == ' ') {
@@ -35,8 +47,9 @@ export default class KeyboardEvents {
                 this.currentCommand = 'DELETE';
             } else if (e.key == 'f') {
                 this.currentCommand = 'FILL';
-            } else if (e.key == 'x') {
-                this.currentCommand = 'ROTATEX';
+            } else if (e.key == 'r') {
+                this.main.currentRotationAxe = this.getNextRotation()
+                this.currentCommand = 'ROTATE';
             } else if (e.key == 'm') {
                 this.currentCommand = 'MOVE';
             } else if (e.key == '1') {

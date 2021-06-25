@@ -92,27 +92,27 @@ export default class MoveCommand extends Command {
             console.log('Local', localNormal, 'World', worldNormal)
 
             // tutte e due pos
-            if( (worldNormal.x > 0 && worldNormal.z > 0 )&& worldNormal.x > worldNormal.z){
+            if ((worldNormal.x > 0 && worldNormal.z > 0) && worldNormal.x > worldNormal.z) {
                 worldNormal.x = 1
                 worldNormal.z = 0
-            } else if ((worldNormal.x > 0 && worldNormal.z > 0 ) && worldNormal.x < worldNormal.z) {
+            } else if ((worldNormal.x > 0 && worldNormal.z > 0) && worldNormal.x < worldNormal.z) {
                 worldNormal.x = 0
                 worldNormal.z = 1
             }
             // tutte e due pos
-            if( (worldNormal.x < 0 && worldNormal.z < 0 )&& worldNormal.x < worldNormal.z){
+            if ((worldNormal.x < 0 && worldNormal.z < 0) && worldNormal.x < worldNormal.z) {
                 worldNormal.x = -1
                 worldNormal.z = 0
-            } else if ((worldNormal.x < 0 && worldNormal.z < 0 ) && worldNormal.z < worldNormal.x) {
+            } else if ((worldNormal.x < 0 && worldNormal.z < 0) && worldNormal.z < worldNormal.x) {
                 worldNormal.x = 0
                 worldNormal.z = -1
             }
 
-            if (cube.userData.moveOngoing ) return
+            if (cube.userData.moveOngoing) return
 
             if (Math.floor(worldNormal.x)) {
                 this.tweenTranslate(cube.position, {
-                    x: cube.position.x + worldNormal.x * this.size * addOrRemove,
+                    x: cube.position.x + worldNormal.x * this.size / 2 * addOrRemove,
                     y: cube.position.y,
                     z: cube.position.z
                 }, 250, TWEEN.Easing.Elastic.Out, cube)
@@ -120,7 +120,7 @@ export default class MoveCommand extends Command {
             if (Math.floor(worldNormal.y)) {
                 this.tweenTranslate(cube.position, {
                     x: cube.position.x,
-                    y: cube.position.y + worldNormal.y * this.size * addOrRemove,
+                    y: cube.position.y + worldNormal.y * this.size / 2 * addOrRemove,
                     z: cube.position.z
                 }, 251, TWEEN.Easing.Elastic.Out, cube)
             }
@@ -128,10 +128,10 @@ export default class MoveCommand extends Command {
                 this.tweenTranslate(cube.position, {
                     x: cube.position.x,
                     y: cube.position.y,
-                    z: cube.position.z + worldNormal.z * this.size * addOrRemove
+                    z: cube.position.z + worldNormal.z * this.size / 2 * addOrRemove
                 }, 251, TWEEN.Easing.Elastic.Out, cube)
             }
-            
+
         }
         // this.main.render();
     }

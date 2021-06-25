@@ -30,7 +30,7 @@ import CreateCommand from './commands/create'
 import DeleteCommand from './commands/delete'
 import EditCommand from './commands/edit'
 import FillCommand from './commands/fill'
-import RotateXCommand from './commands/rotatex'
+import RotateCommand from './commands/rotate'
 import MoveCommand from './commands/move'
 
 class WebEditor3D {
@@ -105,7 +105,7 @@ class WebEditor3D {
       'DELETE': new DeleteCommand(this),
       'EDIT': new EditCommand(this),
       'FILL': new FillCommand(this),
-      'ROTATEX': new RotateXCommand(this),
+      'ROTATE': new RotateCommand(this),
       'MOVE': new MoveCommand(this),
     }
 
