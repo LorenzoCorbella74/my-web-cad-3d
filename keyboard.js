@@ -3,24 +3,42 @@ export default class KeyboardEvents {
     constructor(main) {
 
         this.main = main;
-        
+
+        this.shapes = ['cube', 'half-cylinder', 'quarter-cylinder']
+        this.shapePosition = 0
+        this.main.currentShape = 'cube'
+
         this.currentCommand = 'CREATE'  // DEFAULTS
         this.currentCommandDiv = document.getElementById('currentCommand');
-        this.currentCommandDiv.innerHTML= this.currentCommand
-        
+        this.currentCommandDiv.innerHTML = this.currentCommand
+
         this.startListenDocumentKeyup()
+    }
+
+    getNextShape () {
+        this.shapePosition++
+        if (this.shapePosition > this.shapes.length - 1) {
+            this.shapePosition = 0
+        }
+        return this.shapes[this.shapePosition]
     }
 
     startListenDocumentKeyup () {
         document.onkeyup = (e) => {
             if (e.key == 'Escape' || e.key == ' ') {
+                this.main.currentShape = this.getNextShape()
                 this.currentCommand = 'CREATE';
+                console.log('Shape: ', this.main.currentShape)
             } else if (e.key == 'e') {
                 this.currentCommand = 'EDIT';
             } else if (e.key == 'd') {
                 this.currentCommand = 'DELETE';
             } else if (e.key == 'f') {
                 this.currentCommand = 'FILL';
+            } else if (e.key == 'x') {
+                this.currentCommand = 'ROTATEX';
+            } else if (e.key == 'm') {
+                this.currentCommand = 'MOVE';
             } else if (e.key == '1') {
                 this.main.gridDiv = 128
                 this.main.createGrid(this.main.gridDiv)
@@ -37,7 +55,7 @@ export default class KeyboardEvents {
                 this.main.gridDiv = 8
                 this.main.createGrid(this.main.gridDiv)
             }
-            this.currentCommandDiv.innerHTML= this.currentCommand
+            this.currentCommandDiv.innerHTML = this.currentCommand
         }
     }
 

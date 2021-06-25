@@ -14,7 +14,7 @@ import {
   PerspectiveCamera,
   WebGLRenderer,
   // HELPERS
-  GridHelper
+  GridHelper, AxesHelper
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import TWEEN from '@tweenjs/tween.js'
@@ -30,6 +30,8 @@ import CreateCommand from './commands/create'
 import DeleteCommand from './commands/delete'
 import EditCommand from './commands/edit'
 import FillCommand from './commands/fill'
+import RotateXCommand from './commands/rotatex'
+import MoveCommand from './commands/move'
 
 class WebEditor3D {
 
@@ -102,7 +104,9 @@ class WebEditor3D {
       'CREATE': new CreateCommand(this),
       'DELETE': new DeleteCommand(this),
       'EDIT': new EditCommand(this),
-      'FILL': new FillCommand(this)
+      'FILL': new FillCommand(this),
+      'ROTATEX': new RotateXCommand(this),
+      'MOVE': new MoveCommand(this),
     }
 
     // STATS + DAT.GUI
@@ -123,6 +127,9 @@ class WebEditor3D {
     this.gridDiv = div;
     this.gridHelper = new GridHelper(this.gridSize, this.gridDiv, 0x888888, 0x444444);
     this.gridHelper.name = 'grid'
+    const axesHelper = new AxesHelper( this.gridSize / 2 );
+    axesHelper.position.y = 0.01
+    this.gridHelper.add( axesHelper );
     this.scene.add(this.gridHelper);
   }
 

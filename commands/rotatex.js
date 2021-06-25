@@ -1,7 +1,8 @@
 import Command from './command';
 import { Raycaster } from 'three'
+import TWEEN from '@tweenjs/tween.js'
 
-export default class FillCommand extends Command {
+export default class RotateXCommand extends Command {
 
     constructor(state) {
         super(state)
@@ -60,7 +61,7 @@ export default class FillCommand extends Command {
                 this.intersected = intersects[0].object;
                 this.hide(this.intersected)
             }
-            this.main.cursor.show('Fill color', e)
+            this.main.cursor.show('Totate on local X axis', e)
 
         } else {
             if (this.intersected) {
@@ -79,10 +80,26 @@ export default class FillCommand extends Command {
         if (intersects.length > 0) {
             let intersect = intersects[0];
             if (intersect.object.name !== 'hidden_plane') {
-                this.fill(intersect)
+                // intersect.object.rotateX(Math.PI/2)
+                this.tweenRotate(intersect.object.rotation, {
+                    y: intersect.object.rotation.y + Math.PI/2
+                }, undefined, undefined, intersect.object )
             }
         }
         // this.main.render();
+    }
+
+    tweenRotate (start, end, duration = 250, easing = TWEEN.Easing.Quadratic.InOut, obj) {
+        new TWEEN.Tween(start)
+            .to(end, duration)
+            .easing(easing)
+            .onStart(() => {
+                obj.userData.rotateOnXAxisOngoing = true;
+            })
+            .onComplete(() => {
+                obj.userData.rotateOnXAxisOngoing = false;
+            })
+            .start()
     }
 
     pointerup (event) {
