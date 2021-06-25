@@ -10,17 +10,28 @@ export default class DeleteCommand extends Command {
     }
 
     hide (obj) {
-        [0, 1, 2, 3, 4, 5].forEach(face => {
-            obj.material[face].opacity = 0.5;
-            obj.material[face].transparent = true;
-        });
+        if(obj.userData.shape==='cube'){
+            [0, 1, 2, 3, 4, 5].forEach(face => {
+                obj.material[face].opacity = 0.5;
+                obj.material[face].transparent = true;
+            });
+        } else {
+            obj.material.opacity = 0.5;
+            obj.material.transparent = true;
+        }
     }
 
     show (obj) {
-        [0, 1, 2, 3, 4, 5].forEach(face => {
-            obj.material[face].opacity = 1;
-            obj.material[face].transparent = false;
-        });
+        if(obj.userData.shape==='cube'){
+            [0, 1, 2, 3, 4, 5].forEach(face => {
+                obj.material[face].opacity = 1;
+                obj.material[face].transparent = false;
+            });
+        }
+        else {
+            obj.material.opacity = 1;
+            obj.material.transparent = false;
+        }
     }
 
     mousemove (e) {

@@ -10,17 +10,39 @@ export default class FillCommand extends Command {
     }
 
     hide (obj) {
-        [0, 1, 2, 3, 4, 5].forEach(face => {
-            obj.material[face].opacity = 0.5;
-            obj.material[face].transparent = true;
-        });
+        if(obj.userData.shape==='cube'){
+            [0, 1, 2, 3, 4, 5].forEach(face => {
+                obj.material[face].opacity = 0.5;
+                obj.material[face].transparent = true;
+            });
+        } else {
+            obj.material.opacity = 0.5;
+            obj.material.transparent = true;
+        }
     }
 
     show (obj) {
-        [0, 1, 2, 3, 4, 5].forEach(face => {
-            obj.material[face].opacity = 1;
-            obj.material[face].transparent = false;
-        });
+        if(obj.userData.shape==='cube'){
+            [0, 1, 2, 3, 4, 5].forEach(face => {
+                obj.material[face].opacity = 1;
+                obj.material[face].transparent = false;
+            });
+        }
+        else {
+            obj.material.opacity = 1;
+            obj.material.transparent = false;
+        }
+    }
+
+    fill (obj) {
+        if(obj.object.userData.shape==='cube'){
+            [0, 1, 2, 3, 4, 5].forEach(face => {
+                obj.object.material[face].color.setStyle(this.main.colorsPanel.selectedColor)
+            });
+        }
+        else {
+            obj.object.material.color.setStyle(this.main.colorsPanel.selectedColor)
+        }
     }
 
     mousemove (e) {
@@ -58,7 +80,7 @@ export default class FillCommand extends Command {
             let intersect = intersects[0];
             if (intersect.object.name !== 'hidden_plane') {
                 [0, 1, 2, 3, 4, 5].forEach(face => {
-                    intersect.object.material[face].color.setStyle(this.main.colorsPanel.selectedColor)
+                    this.fill(intersect)
                 });  
             }
         }
