@@ -1,11 +1,13 @@
 import Stats from 'stats.js'
 import * as dat from "dat.gui";
 
+import { Mesh, AxesHelper } from 'three'
+
 
 export const parameters = {
     background: 0x373232,
     ambientLight: 0x606060,
-    directionalLight:0xffffff
+    directionalLight: 0xffffff
 }
 
 export default class Debug {
@@ -22,11 +24,12 @@ export default class Debug {
         let renderer = this.gui.addFolder("Renderer");
         renderer.add(this.world, "startLoop").name('Run loop');
         renderer.add(this.world, "stopLoop").name('Stop loop');
+        renderer.add(this, "toggleAxes").name('Toggle Axes');
         renderer.addColor(parameters, "background").onChange((color) => {
             this.world.scene.background.set(color)
         });
         renderer.open();
-        
+
         let ambientLight = this.gui.addFolder('Ambient Light')
         ambientLight.addColor(parameters, "ambientLight").onChange((color) => {
             this.world.ambientLight.color.set(color)
@@ -39,7 +42,19 @@ export default class Debug {
         light.addColor(parameters, "directionalLight").onChange((color) => {
             this.world.directionalLight.color.set(color)
         });
-        
+
         this.gui.close();
+    }
+
+    toggleAxes(){
+        this.world.scene.traverse(function (node) {
+            if (node instanceof Mesh && node.children.length > 0) {
+                node.children.forEach(element => {
+                    if (element instanceof AxesHelper) {
+                        element.visible = !element.visible
+                    }
+                });
+            }
+        });
     }
 }
