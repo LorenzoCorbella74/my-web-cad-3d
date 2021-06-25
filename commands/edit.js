@@ -60,16 +60,16 @@ export default class EditCommand extends Command {
     }
 
     tweenTranslate (start, end, duration = 250, easing = TWEEN.Easing.Quadratic.InOut, obj) {
-        let actualXpos = start.x;
+        /* let actualXpos = start.x;
         let actualYpos = start.y;
-        let actualZpos = start.z;
+        let actualZpos = start.z; */
         new TWEEN.Tween(start)
             .to(end, duration)
             .easing(easing)
             .onStart(() => {
                 obj.userData.translateOngoing = true;
             })
-            .onUpdate(function () {
+            /* .onUpdate(function () {
                 // Calculate the difference between current frame number and where we want to be:
                 let differenceX = Math.abs(start.x - actualXpos);
                 actualXpos = start.x;
@@ -81,13 +81,13 @@ export default class EditCommand extends Command {
                 obj.translateX(+differenceX);
                 obj.translateY(+differenceY);
                 obj.translateZ(+differenceZ);
-            })
+            }) */
             .onComplete(() => {
                 obj.userData.translateOngoing = false;
             })
             .start()
     }
-    
+
     tweenScale (start, end, duration = 250, easing = TWEEN.Easing.Quadratic.InOut, obj) {
         new TWEEN.Tween(start)
             .to(end, duration)
@@ -120,6 +120,10 @@ export default class EditCommand extends Command {
             worldNormal.copy(localNormal).applyMatrix3(normalMatrix).normalize();
             console.log('Local', localNormal, 'World', worldNormal)
 
+            // localNormal.quaternion = (cube.quaternion.clone())
+            // localNormal.applyQuaternion(cube.quaternion.clone())
+            // console.log('Local', localNormal)
+
             if (cube.userData.moveOngoing || cube.userData.scaleOngoing) return
             if (localNormal.x) {
                 let scaleAmount = cube.scale.x + 1 * addOrRemove * (this.size) / cube.geometry.parameters.width
@@ -129,13 +133,8 @@ export default class EditCommand extends Command {
                     z: cube.scale.z
                 }, 250, TWEEN.Easing.Elastic.Out, cube)
                 if (scaleAmount !== 0) {
-                    this.tweenTranslate(cube.position, {
-                        x: cube.position.x + localNormal.x * this.size / 2 * addOrRemove,
-                        y: cube.position.y,
-                        z: cube.position.z
-                    }, 251, TWEEN.Easing.Elastic.Out, cube)
+                    this.moveOrigin(cube, addOrRemove, worldNormal)
                 }
-
             }
             if (localNormal.y) {
                 let scaleAmount = cube.scale.y + 1 * addOrRemove * (this.size) / cube.geometry.parameters.height
@@ -145,11 +144,7 @@ export default class EditCommand extends Command {
                     z: cube.scale.z
                 }, 250, TWEEN.Easing.Elastic.Out, cube)
                 if (scaleAmount !== 0) {
-                    this.tweenTranslate(cube.position, {
-                        x: cube.position.x,
-                        y: cube.position.y + localNormal.y * this.size / 2 * addOrRemove,
-                        z: cube.position.z
-                    }, 251, TWEEN.Easing.Elastic.Out, cube)
+                    this.moveOrigin(cube, addOrRemove, worldNormal)
                 }
             }
             if (localNormal.z) {
@@ -159,17 +154,36 @@ export default class EditCommand extends Command {
                     y: cube.scale.y,
                     z: scaleAmount == 0 ? 1 : scaleAmount
                 }, 250, TWEEN.Easing.Elastic.Out, cube)
-
                 if (scaleAmount !== 0) {
-                    this.tweenTranslate(cube.position, {
-                        x: cube.position.x,
-                        y: cube.position.y,
-                        z: cube.position.z + localNormal.z * this.size / 2 * addOrRemove
-                    }, 251, TWEEN.Easing.Elastic.Out, cube)
+                    this.moveOrigin(cube, addOrRemove, worldNormal)
                 }
             }
         }
         // this.main.render();
+    }
+
+    moveOrigin (cube, addOrRemove, worldNormal) {
+        if (Math.floor(worldNormal.x)) {
+            this.tweenTranslate(cube.position, {
+                x: cube.position.x + worldNormal.x * this.size / 2 * addOrRemove,
+                y: cube.position.y,
+                z: cube.position.z
+            }, 251, TWEEN.Easing.Elastic.Out, cube)
+        }
+        if (Math.floor(worldNormal.y)) {
+            this.tweenTranslate(cube.position, {
+                x: cube.position.x,
+                y: cube.position.y + worldNormal.y * this.size / 2 * addOrRemove,
+                z: cube.position.z
+            }, 251, TWEEN.Easing.Elastic.Out, cube)
+        }
+        if (Math.floor(worldNormal.z)) {
+            this.tweenTranslate(cube.position, {
+                x: cube.position.x,
+                y: cube.position.y,
+                z: cube.position.z + worldNormal.z * this.size / 2 * addOrRemove
+            }, 251, TWEEN.Easing.Elastic.Out, cube)
+        }
     }
 
     pointerup (event) {
