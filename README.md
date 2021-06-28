@@ -1,6 +1,6 @@
 # WEB-CAD-3D
 
-![IMG](docs/webcad.gif)
+![IMG](docs/web-cad-3d.gif)
 
 ![](https://img.shields.io/badge/type-JS_Library-brightgreen.svg "Project type")
 ![](https://img.shields.io/github/repo-size/LorenzoCorbella74/my-web-cad3D "Repository size")
